@@ -1,0 +1,11 @@
+version: "3"
+services:
+  nginx:
+    build:
+      dockerfile: ./docker/containers/nginx/prod/Dockerfile
+  php:
+    build:
+      dockerfile: ./docker/containers/php/prod/Dockerfile
+    environment:
+      APP_ENV: "prod"
+      APP_DEBUG: 0

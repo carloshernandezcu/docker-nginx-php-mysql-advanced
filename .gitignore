@@ -1,0 +1,9 @@
+.DS_Store
+.idea
+.vscode
+.editorconfig
+
+app/node_modules
+app/dist
+
+data/mariadb
