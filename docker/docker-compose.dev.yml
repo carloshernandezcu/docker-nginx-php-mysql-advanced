@@ -16,4 +16,3 @@ services:
   mariadb:
     volumes:
     - ../data/mariadb:/var/lib/mysql
-    - ../migrations/mariadb:/docker-entrypoint-initdb.d/
