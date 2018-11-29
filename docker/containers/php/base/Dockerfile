@@ -3,9 +3,9 @@ FROM php:7.2-fpm
 WORKDIR /var/www/api
 
 # Install PHP extensions
-#ARG DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
-    && apt-get -y --no-install-recommends install sudo curl libpng-dev \
+    && apt-get -y --no-install-recommends install sudo curl git unzip \
     && docker-php-ext-install gd mbstring pdo_mysql \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 

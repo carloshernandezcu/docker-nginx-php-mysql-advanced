@@ -1,8 +1,8 @@
 [mysqld]
 
-# Fix for shared folders in Docker for Windows using Hyper-V
+# Fix for shared folders in Docker for Windows (10) using Hyper-V
 innodb_flush_method=fsync
 
-# Fix for shared folders in Docker Toolbox using VirtualBox
+# Fix for shared folders in Docker Toolbox (8,10) using VirtualBox
 innodb_use_native_aio=off
 log_bin=on
