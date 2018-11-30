@@ -2,21 +2,24 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LuckyController extends AbstractController
 {
     /**
-     * @Route("/api/lucky/number")
+     * @Route("/api/welcome")
      */
     public function number()
     {
         $number = random_int(0, 100);
 
-        return new Response(
-            '<html><body>Lucky number: ' . $number . '</body></html>'
+        return new JsonResponse(
+            array(
+                "title" => "Docker Nginx PHP Mysql template (backend)",
+                "lucky number" => $number
+            )
         );
     }
 }
