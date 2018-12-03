@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class LuckyController extends AbstractController
+class WelcomeController extends AbstractController
 {
     /**
      * @Route("/api/welcome")
