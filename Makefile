@@ -14,6 +14,7 @@ endif
 
 help:
 	@echo "Options:"
+	@echo " init                 - Initialize the local project after clone or download."
 	@echo " up                   - Create and start all containers for development. Codebase is shared."
 	@echo " up ENV=prod          - Create and start all containers for production. Codebase is copied inside container."
 	@echo " clear-cache          - Clear Symfony cache in development, shared local filesystem."
@@ -28,21 +29,25 @@ help:
 	@echo " stop                 - Stop all containers."
 	@echo " down                 - Stop and remove containers, networks, images, and volumes."
 
+init: composer-install
+	@echo "Fixing permissions..."
+	@chmod +x ./docker/bin/build_base_containers.sh
+
 docker-common:
 	@export COMPOSE_API_VERSION=$(DOCKERCOMPOSE_API_VERSION_MIN)
 
-up: composer-install
+up:
 	@echo "Creating and starting containers..."
 	@./docker/bin/build_base_containers.sh
 ifeq ($(ENV), dev)
-	@echo "Enviroment: Development"
+	@echo "Environment: Development"
 	cd $(DOCKER_ROOT) && \
 	docker-compose \
 		-f docker-compose.yml \
 		-f docker-compose.dev.yml \
 		up -d --build
 else ifeq ($(ENV), prod)
-	@echo "Enviroment: Production"
+	@echo "Environment: Production"
 	cd $(DOCKER_ROOT) && \
 	docker-compose \
 		-f docker-compose.yml \
@@ -54,6 +59,7 @@ else
 endif
 
 composer-install:
+	@echo "Installing PHP dependencies..."
 	cd $(API_ROOT) && \
     composer install --no-interaction --optimize-autoloader
 
@@ -97,13 +103,13 @@ start:
 	docker-compose start
 
 stop:
-	@echo "Stoping containers..."
+	@echo "Stopping containers..."
 	@cd $(DOCKER_ROOT) && \
 	docker-compose stop
 
 down:
-	@echo "Stoping and removing containers, networks, images, and volumes..."
+	@echo "Stopping and removing containers, networks, images, and volumes..."
 	@cd $(DOCKER_ROOT) && \
 	docker-compose down
 
-.PHONY: help up composer-install clear-cache unit-test integration-test functional-test test log start stop down
+.PHONY: help init up composer-install clear-cache unit-test integration-test functional-test test log start stop down
